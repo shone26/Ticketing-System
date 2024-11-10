@@ -1,9 +1,7 @@
 package lk.iit.ticketingsystem.Models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class User {
@@ -13,15 +11,19 @@ public class User {
     private String password;
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     public User() {
 
     }
 
-    public User(String fullName, String username, String password, String email) {
+    public User(String fullName, String username, String password, String email, String role) {
         this.fullName = fullName;
         this.username = username;
         this.password = password;
         this.email = email;
+        this.role = Role.valueOf(role);
 
     }
 

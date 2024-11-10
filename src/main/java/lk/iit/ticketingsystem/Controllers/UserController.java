@@ -27,12 +27,12 @@ public class UserController {
         final String username = headers.getFirst("username");
         final String password = headers.getFirst("password");
         final String email = headers.getFirst("email");
-        User newUser = new User(fullname, username, password, email);
+        final String role = headers.getFirst("role");
+        User newUser = new User(fullname, username, password, email, role);
 
         userRepository.save(newUser);
         return "success";
     }
-
 
 
 }
