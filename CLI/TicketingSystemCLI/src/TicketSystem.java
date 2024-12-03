@@ -25,26 +25,26 @@ public class TicketSystem {
         System.out.println("System configuration completed!");
         input.close();
 
-        TicketPool ticketPool = new TicketPool(totalTickets, maxTicketCapacity);
+        TicketPool ticketPool = new TicketPool(maxTicketCapacity, totalTickets);
 
 
-        Thread vendor1 = new Thread(new Vendor(ticketPool, "Vendor 1", ticketReleaseRate));
-        Thread vendor2 = new Thread(new Vendor(ticketPool, "Vendor 2", ticketReleaseRate));
+        Thread vendor1 = new Thread(new Vendor(ticketPool, "Spandana", ticketReleaseRate, "Shone", 2000));
+        Thread vendor2 = new Thread(new Vendor(ticketPool, "Inter-Splash", ticketReleaseRate, "Dasun", 4000));
 
-        Thread customer1 = new Thread(new Customer(ticketPool, "Customer 1", customerRetrievalRate));
-        Thread customer2 = new Thread(new Customer(ticketPool, "Customer 2", customerRetrievalRate));
-        Thread customer3 = new Thread(new Customer(ticketPool, "Customer 3", customerRetrievalRate));
+        Thread customer1 = new Thread(new Customer(ticketPool, "Shanaka", customerRetrievalRate));
+        Thread customer2 = new Thread(new Customer(ticketPool, "Namidu", customerRetrievalRate));
+        Thread customer3 = new Thread(new Customer(ticketPool, "Umesh", customerRetrievalRate));
 
         vendor1.start();
-        Thread.sleep(100);
+//        Thread.sleep(100);
         vendor2.start();
-        Thread.sleep(100);
+//        Thread.sleep(100);
         customer1.start();
-        Thread.sleep(100);
+//        Thread.sleep(100);
         customer2.start();
-        Thread.sleep(100);
+//        Thread.sleep(100);
         customer3.start();
-        Thread.sleep(100);
+//        Thread.sleep(100);
 
 
 
@@ -121,3 +121,5 @@ public class TicketSystem {
 //        }
 //    }
 }
+
+// need to randomise how many tickets are purchase a time by the customer.

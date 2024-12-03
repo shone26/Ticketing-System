@@ -1,11 +1,11 @@
 public class Customer implements Runnable{
-    public final TicketPool ticketPool;
-    private final String name;
-    private final int retrieveRate;
+    public TicketPool ticketPool;
+    private String customerName;
+    private int retrieveRate;
 
-    public Customer(TicketPool ticketPool, String name, int retrieveRate) {
+    public Customer(TicketPool ticketPool, String customerName, int retrieveRate) {
         this.ticketPool = ticketPool;
-        this.name = name;
+        this.customerName = customerName;
         this.retrieveRate = retrieveRate;
     }
 
@@ -13,12 +13,10 @@ public class Customer implements Runnable{
     public void run() {
         while (true) {
             try {
-                 //6 tickets per minute
-                ticketPool.buyTicket(name);
-                Thread.sleep(10000);
+                ticketPool.removeTicket(retrieveRate, customerName);
+                Thread.sleep(5000);
 
             } catch (InterruptedException e) {
-                System.out.println(name + " stopped purchasing tickets...");
                 Thread.currentThread().interrupt();
                 break;
             }

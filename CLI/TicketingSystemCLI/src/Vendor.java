@@ -3,26 +3,26 @@ public class Vendor implements Runnable {
     private String eventName;
     private int releaseRate;
     private double price;
+    private String vendorName;
 
-    public Vendor(TicketPool ticketPool, String eventName, int releaseRate, double price) {
+    public Vendor(TicketPool ticketPool, String eventName, int releaseRate, String vendorName, double price) {
         this.ticketPool = ticketPool;
         this.eventName = eventName;
         this.releaseRate = releaseRate;
+        this.vendorName = vendorName;
         this.price = price;
     }
 
     @Override
     public void run() {
         while (true) {
+            ticketPool.addTicket(releaseRate, price, eventName, vendorName);
             try {
                 //12 per minute
-                ticketPool.addTicket(name);
-                Thread.sleep(7500);
+                Thread.sleep(5000);
 
             } catch (InterruptedException e) {
-                System.out.println(name + " stopped adding interrupted");
                 Thread.currentThread().interrupt();
-                break;
             }
 
         }
