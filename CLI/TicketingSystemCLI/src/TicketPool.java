@@ -1,46 +1,51 @@
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TicketPool {
-    private int availableTickets;
+    private List<Ticket> ticketList;
     private int max_ticket_capacity;
-    private Lock lock = new ReentrantLock() ;
+    private int ticketIdGenerator;
 
-    public TicketPool(int availableTickets, int max_ticket_capacity) {
-        this.availableTickets = availableTickets;
+
+    public TicketPool(int max_ticket_capacity) {
+        this.ticketList = new ArrayList<Ticket>();
         this.max_ticket_capacity = max_ticket_capacity;
+        this.ticketIdGenerator = 1;
     }
 
-    public synchronized void buyTicket(String customerName) {
-
-        while (availableTickets == 0) {
-            System.out.println(customerName + " is waiting for a ticket to buy...");
+    public synchronized void addTicket(int ticketAmount, double ticketPrice, String eventName) {
+        while(ticketList.size() + ticketAmount > max_ticket_capacity) {
             try {
-                Thread.sleep(1000);
+                System.out.println("Ticket pool is full. Wait...");
+                wait();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
             }
         }
+        for (int i = 0; i < ticketAmount; i++) {
+            Ticket ticket = new Ticket(ticketIdGenerator++, eventName, ticketPrice);
+            ticketList.add(ticket);
+            notifyAll();
+        }
 
-        availableTickets--;
-        System.out.println(customerName + " has bought a ticket. Remaining: " + availableTickets);
-        notifyAll();
     }
 
-    public synchronized void addTicket(String vendorName) {
-
-        while (availableTickets >= max_ticket_capacity) {
-
+    public synchronized boolean removeTicket(String customerName) {
+        while(ticketList.isEmpty()) {
             try {
-                System.out.println(vendorName + " is waiting for a ticket to add... pool is full");
-                Thread.sleep(1000);
+                wait();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
             }
         }
-        availableTickets++;
-        System.out.println(vendorName + " has added a ticket. Available tickets: " + availableTickets);
-        notifyAll();
+        Ticket ticket = ticketList.remove(0);
+        ticket.purchaseTicket(customerName);
+        System.out.println("Ticket purchased by " + customerName + ". Ticket details " + ticket );
+        return true;
+    }
+
+    public int getAvailableTickets() {
+        return ticketList.size();
     }
 
 

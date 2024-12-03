@@ -1,12 +1,14 @@
 public class Vendor implements Runnable {
-    public final TicketPool ticketPool;
-    private final String name;
-    private final int releaseRate;
+    public TicketPool ticketPool;
+    private String eventName;
+    private int releaseRate;
+    private double price;
 
-    public Vendor(TicketPool ticketPool, String name, int releaseRate) {
+    public Vendor(TicketPool ticketPool, String eventName, int releaseRate, double price) {
         this.ticketPool = ticketPool;
-        this.name = name;
+        this.eventName = eventName;
         this.releaseRate = releaseRate;
+        this.price = price;
     }
 
     @Override
