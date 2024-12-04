@@ -13,10 +13,10 @@ public class TicketSystem {
         System.out.println("Enter total tickets available: ");
         totalTickets = input.nextInt();
 
-        System.out.println("Enter ticket release rate per ticket (How much for a minute): ");
+        System.out.println("Enter ticket release rate per ticket (How much tickets for a minute): ");
         ticketReleaseRate = input.nextInt();
 
-        System.out.println("Enter customer retrieval rate per ticket (How much for a minute): ");
+        System.out.println("Enter customer retrieval rate per ticket (How much tickets for a minute): ");
         customerRetrievalRate = input.nextInt();
 
         System.out.println("Enter max ticket capacity: ");
@@ -28,23 +28,23 @@ public class TicketSystem {
         TicketPool ticketPool = new TicketPool(maxTicketCapacity, totalTickets);
 
 
-        Thread vendor1 = new Thread(new Vendor(ticketPool, "Spandana", ticketReleaseRate, "Shone", 2000));
-        Thread vendor2 = new Thread(new Vendor(ticketPool, "Inter-Splash", ticketReleaseRate, "Dasun", 4000));
+        Thread vendor1 = new Thread(new Vendor(ticketPool, totalTickets, ticketReleaseRate, "Shone", 2000, 7));
+        Thread vendor2 = new Thread(new Vendor(ticketPool, totalTickets,  ticketReleaseRate, "Dasun", 4000, 5));
 
-        Thread customer1 = new Thread(new Customer(ticketPool, "Shanaka", customerRetrievalRate));
-        Thread customer2 = new Thread(new Customer(ticketPool, "Namidu", customerRetrievalRate));
-        Thread customer3 = new Thread(new Customer(ticketPool, "Umesh", customerRetrievalRate));
+        Thread customer1 = new Thread(new Customer(ticketPool, "Shanaka", customerRetrievalRate, 5, false));
+        Thread customer2 = new Thread(new Customer(ticketPool, "Namidu", customerRetrievalRate, 3, false));
+        Thread customer3 = new Thread(new Customer(ticketPool, "Umesh", customerRetrievalRate, 4, true));
 
         vendor1.start();
-//        Thread.sleep(100);
+        Thread.sleep(2000);
         vendor2.start();
-//        Thread.sleep(100);
+        Thread.sleep(2000);
         customer1.start();
-//        Thread.sleep(100);
+        Thread.sleep(2000);
         customer2.start();
-//        Thread.sleep(100);
+        Thread.sleep(2000);
         customer3.start();
-//        Thread.sleep(100);
+        Thread.sleep(2000);
 
 
 

@@ -15,8 +15,8 @@ public class TicketPool {
         this.ticketIdGenerator = 1;
     }
 
-    public synchronized void addTicket(int ticketAmount, double ticketPrice, String eventName, String vendorName) {
-        while(ticketList.size() + ticketAmount > max_ticket_capacity) {
+    public synchronized void addTicket(int releaseRate, int totalTickets, double ticketPrice, String vendorName, int releaseTicketAmount) {
+        while(ticketList.size() + releaseTicketAmount + totalTickets > max_ticket_capacity) {
             try {
                 System.out.println("Ticket pool is full. Wait...");
                 wait();
@@ -24,17 +24,22 @@ public class TicketPool {
                 Thread.currentThread().interrupt();
             }
         }
-        for (int i = 0; i < ticketAmount; i++) {
-            Ticket ticket = new Ticket(ticketIdGenerator++, eventName, ticketPrice);
-            ticketList.add(ticket);
-            System.out.println("A ticket added by vendor " + vendorName + ". Ticket details " + ticket );
-            notifyAll();
+        for (int i = 0; i < releaseTicketAmount; i++) {
+            try {
+                Ticket ticket = new Ticket(ticketIdGenerator++, ticketPrice);
+                ticketList.add(ticket);
+                Thread.sleep(60000/releaseRate);
+                System.out.println("A ticket added by vendor " + vendorName + ". Ticket details " + ticket );
+                notifyAll();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }
 
-    public synchronized boolean removeTicket(int retrevalRate,String customerName) {
-        while(ticketList.size() - retrevalRate < 0) {
+    public synchronized boolean removeTicket(int retrevalRate,String customerName, int ticketAmount) {
+        while(ticketList.size() - ticketAmount < 0) {
             try {
                 System.out.println("Ticket pool is empty. Wait...");
                 wait();
@@ -42,10 +47,15 @@ public class TicketPool {
                 Thread.currentThread().interrupt();
             }
         }
-        for (int i = 0; i < retrevalRate; i++) {
-            Ticket ticket = ticketList.remove(0);
-            ticket.purchaseTicket(customerName);
-            System.out.println("Ticket purchased by " + customerName + ". Ticket details " + ticket );
+        for (int i = 0; i < ticketAmount; i++) {
+            try {
+                Ticket ticket = ticketList.remove(0);
+                ticket.purchaseTicket(customerName);
+                Thread.sleep(60000/retrevalRate);
+                System.out.println("Ticket purchased by " + customerName + ". Ticket details " + ticket );
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         return true;
     }
