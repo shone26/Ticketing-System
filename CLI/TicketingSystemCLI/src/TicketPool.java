@@ -1,11 +1,16 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class TicketPool {
     private List<Ticket> ticketList;
     private int max_ticket_capacity;
     private int ticketIdGenerator;
-    public int totalInitialTickets;
+    private int totalInitialTickets;
+    private int currentTicketId;
+    private List<Double> priceList = new ArrayList<>(List.of(2000.00, 4000.00));
+
+
 
 
     public TicketPool(int max_ticket_capacity, int totalInitialTickets) {
@@ -13,28 +18,48 @@ public class TicketPool {
         this.max_ticket_capacity = max_ticket_capacity;
         this.totalInitialTickets = totalInitialTickets;
         this.ticketIdGenerator = 1;
+        this.currentTicketId = totalInitialTickets;
+
+        for (int i = 0; i < totalInitialTickets; i++) {
+            ticketList.add(new Ticket(ticketIdGenerator++, getRandomPrice()));
+        }
     }
 
+    private double getRandomPrice() {
+        Random random = new Random();
+        int randomIndex = random.nextInt(priceList.size());
+        return priceList.get(randomIndex);
+    }
+
+
     public synchronized void addTicket(int releaseRate, int totalTickets, double ticketPrice, String vendorName, int releaseTicketAmount) {
-        while(ticketList.size() + releaseTicketAmount + totalTickets > max_ticket_capacity) {
+
+        if (totalInitialTickets >= max_ticket_capacity) {
             try {
+
+//                System.out.println(ticketList.size()+totalTickets);
+//                System.out.println(ticketList.size());
+//                System.out.println(max_ticket_capacity);
                 System.out.println("Ticket pool is full. Wait...");
                 wait();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+            } catch (InterruptedException ignored) {
+            }
+        }else {
+            for (int i = 0; i < releaseTicketAmount; i++) {
+                try {
+
+                    Ticket ticket = new Ticket(ticketIdGenerator++, ticketPrice);
+                    ticketList.add(ticket);
+                    Thread.sleep(60000/releaseRate);
+                    System.out.println("A ticket added by vendor " + vendorName + ". Ticket details " + ticket );
+                    notifyAll();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
-        for (int i = 0; i < releaseTicketAmount; i++) {
-            try {
-                Ticket ticket = new Ticket(ticketIdGenerator++, ticketPrice);
-                ticketList.add(ticket);
-                Thread.sleep(60000/releaseRate);
-                System.out.println("A ticket added by vendor " + vendorName + ". Ticket details " + ticket );
-                notifyAll();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
+
+
 
     }
 
@@ -64,5 +89,8 @@ public class TicketPool {
         return ticketList.size();
     }
 
+    public void setTicketList(List<Ticket> ticketList) {
+        this.ticketList = ticketList;
+    }
 
 }

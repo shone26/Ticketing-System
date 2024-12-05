@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class TicketSystem {
@@ -25,8 +27,16 @@ public class TicketSystem {
         System.out.println("System configuration completed!");
         input.close();
 
-        TicketPool ticketPool = new TicketPool(maxTicketCapacity, totalTickets);
+        List<Ticket> newTicketList = new ArrayList<>();
+        for (int i = 0; i < totalTickets; i++) {
+            newTicketList.add(new Ticket(1, 100.0));
+        }
 
+        newTicketList.add(new Ticket(1, 100.0));
+        newTicketList.add(new Ticket(2, 150.0));
+        newTicketList.add(new Ticket(3, 120.0));
+
+        TicketPool ticketPool = new TicketPool(maxTicketCapacity, totalTickets);
 
         Thread vendor1 = new Thread(new Vendor(ticketPool, totalTickets, ticketReleaseRate, "Shone", 2000, 7));
         Thread vendor2 = new Thread(new Vendor(ticketPool, totalTickets,  ticketReleaseRate, "Dasun", 4000, 5));

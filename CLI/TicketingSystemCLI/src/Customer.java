@@ -38,7 +38,7 @@ public class Customer extends Thread {
                 ticketPool.removeTicket(retrieveRate, customerName, ticketAmount);
 
             }else {
-                ticketPool.removeTicket(retrieveRate, customerName, ticketAmount);
+                ticketPool.removeTicket(retrieveRate, customerName);
             }
             ticketPurchased++;
         }else {
