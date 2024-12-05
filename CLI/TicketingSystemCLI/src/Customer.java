@@ -3,7 +3,6 @@ public class Customer extends Thread {
     private String customerName;
     private int retrieveRate;
     private boolean isVip;
-    private int ticketPurchased;
     private int ticketAmount;
 
     public Customer(TicketPool ticketPool, String customerName, int retrieveRate, int ticketAmount, boolean isVip) {

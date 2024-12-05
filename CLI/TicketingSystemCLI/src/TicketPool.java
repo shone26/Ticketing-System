@@ -34,15 +34,7 @@ public class TicketPool {
 
     public synchronized void addTicket(int releaseRate, int totalTickets, double ticketPrice, String vendorName, int releaseTicketAmount) {
 
-//        if (ticketIdGenerator > max_ticket_capacity) {
-//            System.out.println("All the tickets are sold");
-//            try {
-//                wait();
-//            } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();
-//
-//            }
-//        }else {
+
             for (int i = 0; i < releaseTicketAmount; i++) {
                 if (ticketIdGenerator > max_ticket_capacity) {
                     try {
@@ -69,27 +61,38 @@ public class TicketPool {
 
     }
 
-    public synchronized boolean removeTicket(int retrevalRate,String customerName, int ticketAmount) {
-        while(ticketList.size() - ticketAmount <= 0) {
+    public synchronized boolean removeTicket(int retrievalRate, String customerName, int ticketAmount) {
+        // Ensure the ticketList is not empty before proceeding
+        while (ticketList.isEmpty()) {
             try {
                 System.out.println("All the tickets are sold...");
                 wait();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+                return false;
             }
         }
-        for (int i = 0; i < ticketAmount; i++) {
-            try {
-                Ticket ticket = ticketList.remove(0);
-                ticket.purchaseTicket(customerName);
-                Thread.sleep(60000/retrevalRate);
-                System.out.println("Ticket purchased by " + customerName + ". Ticket details " + ticket );
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+
+        // Only proceed if enough tickets are available
+        if (ticketList.size() >= ticketAmount) {
+            for (int i = 0; i < ticketAmount; i++) {
+                try {
+                    Ticket ticket = ticketList.remove(0);
+                    ticket.purchaseTicket(customerName);
+                    Thread.sleep(60000 / retrievalRate); // Simulate retrieval delay
+                    System.out.println("Ticket purchased by " + customerName + ". Ticket details: " + ticket);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return false;
+                }
             }
+            return true; // Successfully removed tickets
+        } else {
+            System.out.println("Not enough tickets available.");
+            return false; // Not enough tickets to fulfill the request
         }
-        return true;
     }
+
 
     public int getAvailableTickets() {
         return ticketList.size();

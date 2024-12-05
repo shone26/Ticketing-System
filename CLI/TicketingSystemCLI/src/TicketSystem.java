@@ -1,7 +1,9 @@
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+
 
 public class TicketSystem {
     public static void main(String[] args) throws InterruptedException {
@@ -10,31 +12,25 @@ public class TicketSystem {
         int customerRetrievalRate;
         int maxTicketCapacity;
 
+        System.out.println(
+                "*********************************************\n" +
+                        "   WELCOME TO THE TICKET MANAGEMENT SYSTEM\n" +
+                        "*********************************************");
+
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Enter total tickets available: ");
-        totalTickets = input.nextInt();
+        totalTickets = inputValidityChecker(input, "Enter total tickets available: ");
 
-        System.out.println("Enter ticket release rate per ticket (How much tickets for a minute): ");
-        ticketReleaseRate = input.nextInt();
+        ticketReleaseRate = inputValidityChecker(input, "Enter ticket release rate per ticket (How much tickets for a minute): ");
 
-        System.out.println("Enter customer retrieval rate per ticket (How much tickets for a minute): ");
-        customerRetrievalRate = input.nextInt();
+        customerRetrievalRate = inputValidityChecker(input, "Enter customer retrieval rate per ticket (How much tickets for a minute): ");
 
-        System.out.println("Enter max ticket capacity: ");
-        maxTicketCapacity = input.nextInt();
+        maxTicketCapacity = inputValidityChecker(input, "Enter max ticket capacity: ");
 
         System.out.println("System configuration completed!");
         input.close();
 
-        List<Ticket> newTicketList = new ArrayList<>();
-        for (int i = 0; i < totalTickets; i++) {
-            newTicketList.add(new Ticket(1, 100.0));
-        }
 
-        newTicketList.add(new Ticket(1, 100.0));
-        newTicketList.add(new Ticket(2, 150.0));
-        newTicketList.add(new Ticket(3, 120.0));
 
         TicketPool ticketPool = new TicketPool(maxTicketCapacity, totalTickets);
 
@@ -56,12 +52,21 @@ public class TicketSystem {
         customer3.start();
         Thread.sleep(2000);
 
+    }
 
-
-//        TicketSystem system = new TicketSystem();
-//        system.connection();
-//        system.runCLI();
-//        system.inputMenuOption();
+    public static int inputValidityChecker(Scanner input, String prompt){
+        int value;
+        while (true){
+            System.out.println(prompt);
+            try{
+                value = input.nextInt();
+                break;
+            }
+            catch (InputMismatchException e){
+                System.out.println("Please enter valid input (Only int applicable)..");
+                input.nextLine();
+            }
+        }return value;
     }
 
 //    public void runCLI(){

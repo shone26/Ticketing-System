@@ -1,3 +1,6 @@
+
+
+
 public class SystemConfiguration {
     private int totalTickets;
     private int ticketReleaseRate;
@@ -10,6 +13,7 @@ public class SystemConfiguration {
         this.customerRetrievalRate = customerRetrievalRate;
         this.maxTicketCapacity = maxTicketCapacity;
     }
+
 
 
 }
