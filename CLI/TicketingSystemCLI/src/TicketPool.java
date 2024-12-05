@@ -34,18 +34,24 @@ public class TicketPool {
 
     public synchronized void addTicket(int releaseRate, int totalTickets, double ticketPrice, String vendorName, int releaseTicketAmount) {
 
-        if (totalInitialTickets >= max_ticket_capacity) {
-            try {
-
-//                System.out.println(ticketList.size()+totalTickets);
-//                System.out.println(ticketList.size());
-//                System.out.println(max_ticket_capacity);
-                System.out.println("Ticket pool is full. Wait...");
-                wait();
-            } catch (InterruptedException ignored) {
-            }
-        }else {
+//        if (ticketIdGenerator > max_ticket_capacity) {
+//            System.out.println("All the tickets are sold");
+//            try {
+//                wait();
+//            } catch (InterruptedException e) {
+//                Thread.currentThread().interrupt();
+//
+//            }
+//        }else {
             for (int i = 0; i < releaseTicketAmount; i++) {
+                if (ticketIdGenerator > max_ticket_capacity) {
+                    try {
+                        System.out.println("The ticket pool is full");
+                        wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }
                 try {
 
                     Ticket ticket = new Ticket(ticketIdGenerator++, ticketPrice);
@@ -56,7 +62,7 @@ public class TicketPool {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-            }
+//            }
         }
 
 
@@ -64,9 +70,9 @@ public class TicketPool {
     }
 
     public synchronized boolean removeTicket(int retrevalRate,String customerName, int ticketAmount) {
-        while(ticketList.size() - ticketAmount < 0) {
+        while(ticketList.size() - ticketAmount <= 0) {
             try {
-                System.out.println("Ticket pool is empty. Wait...");
+                System.out.println("All the tickets are sold...");
                 wait();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

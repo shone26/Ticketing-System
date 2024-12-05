@@ -10,4 +10,6 @@ public class SystemConfiguration {
         this.customerRetrievalRate = customerRetrievalRate;
         this.maxTicketCapacity = maxTicketCapacity;
     }
+
+
 }

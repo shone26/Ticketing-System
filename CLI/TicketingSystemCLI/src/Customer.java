@@ -17,39 +17,36 @@ public class Customer extends Thread {
 
     @Override
     public void run() {
-//        if (isVip==true) {
-//            this.setPriority(Thread.MAX_PRIORITY);
-//        }else{
-//            this.setPriority(Thread.NORM_PRIORITY);
-//        }
-//        System.out.println(this.getPriority());
         while (true) {
-            if (isVip) {
-                purchaseTicket();  // VIP customers are prioritized
-            } else {
-                purchaseTicket();  // Regular customers can also purchase tickets
-            }
 
-        }
-    }
-    public void purchaseTicket() {
-        if (ticketPurchased < 4) {
-            if (isVip) {
+            if (ticketAmount >= 4 ){
                 ticketPool.removeTicket(retrieveRate, customerName, ticketAmount);
+                try {
+                    System.out.println(customerName + " has bought 4 tickets in row. Please wait 10 seconds...");
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }else{
+                ticketPool.removeTicket(retrieveRate, customerName, ticketAmount);
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
 
-            }else {
-                ticketPool.removeTicket(retrieveRate, customerName);
-            }
-            ticketPurchased++;
-        }else {
-            try{
-                System.out.println(customerName+" has reached maximum limit of 4 tickets. Plz wait 10 seconds.");
-                sleep(10000);
-                ticketPurchased = 0;
-            }
-            catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+
+
+//            // Attempt to purchase a ticket (retrieval rate)
+//            ticketPool.removeTicket(retrieveRate, customerName, ticketAmount);
+//
+//            try {
+//                Thread.sleep(5000); // Simulate a 0.5-second interval between purchases
+//            } catch (InterruptedException e) {
+//                Thread.currentThread().interrupt();  // Handle interruption properly
+//            }
         }
     }
+
 }
