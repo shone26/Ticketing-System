@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -17,6 +19,9 @@ public class TicketSystem {
                         "   WELCOME TO THE TICKET MANAGEMENT SYSTEM\n" +
                         "*********************************************");
 
+        System.out.println("Y - Add new configuration settings...\n N - Use previous configuration settings");
+        
+
         Scanner input = new Scanner(System.in);
 
         totalTickets = inputValidityChecker(input, "Enter total tickets available: ");
@@ -27,9 +32,23 @@ public class TicketSystem {
 
         maxTicketCapacity = inputValidityChecker(input, "Enter max ticket capacity: ");
 
+
+
         System.out.println("System configuration completed!");
         input.close();
 
+        SystemConfiguration config = new SystemConfiguration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
+
+        String json = config.toJson();
+
+        try {
+            FileWriter writer = new FileWriter("config.json");
+            writer.write(json);
+            System.out.println("Configuration saved to config.json");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         TicketPool ticketPool = new TicketPool(maxTicketCapacity, totalTickets);

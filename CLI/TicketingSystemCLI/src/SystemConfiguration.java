@@ -1,5 +1,4 @@
-
-
+import com.google.gson.Gson;
 
 public class SystemConfiguration {
     private int totalTickets;
@@ -13,6 +12,16 @@ public class SystemConfiguration {
         this.customerRetrievalRate = customerRetrievalRate;
         this.maxTicketCapacity = maxTicketCapacity;
     }
+
+
+
+    public String toJson() {
+        Gson gson = new Gson();
+        return gson.toJson(this);  // in this i used toJson method to convert the object to json file..  serialization approach..
+    }
+
+
+
 
 
 

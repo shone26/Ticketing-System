@@ -26,15 +26,15 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="navercorp.pinpoint.mysql.jdbc.driver.plugin" level="project" />
-    <orderEntry type="module-library" exported="" scope="PROVIDED">
+    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../SD1 Viva/gson-2.10.1-javadoc.jar!/" />
+          <root url="jar://$MODULE_DIR$/TicketingSystemCLI/lib/gson-2.11.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

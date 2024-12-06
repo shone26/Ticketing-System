@@ -2,7 +2,6 @@
   <library name="mysql-connector-j-9.1.0">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/TicketingSystemCLI/lib/mysql-connector-j-9.1.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/TicketingSystemCLI/lib/gson-2.10.1-javadoc.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
