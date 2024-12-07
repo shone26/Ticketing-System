@@ -7,12 +7,13 @@ import java.util.List;
 import java.util.Scanner;
 
 
+
 public class TicketSystem {
     public static void main(String[] args) throws InterruptedException {
-        int totalTickets;
-        int ticketReleaseRate;
-        int customerRetrievalRate;
-        int maxTicketCapacity;
+        int totalTickets = 0;
+        int ticketReleaseRate = 0;
+        int customerRetrievalRate = 0;
+        int maxTicketCapacity = 0;
 
         System.out.println(
                 "*********************************************\n" +
@@ -20,18 +21,22 @@ public class TicketSystem {
                         "*********************************************");
 
         System.out.println("Y - Add new configuration settings...\n N - Use previous configuration settings");
-        
+
 
         Scanner input = new Scanner(System.in);
 
-        totalTickets = inputValidityChecker(input, "Enter total tickets available: ");
+//        String choice = input.nextLine();
+//        if (choice.equals("Y")) {
+            totalTickets = inputValidityChecker(input, "Enter total tickets available: ");
 
-        ticketReleaseRate = inputValidityChecker(input, "Enter ticket release rate per ticket (How much tickets for a minute): ");
+            ticketReleaseRate = inputValidityChecker(input, "Enter ticket release rate per ticket (How much tickets for a minute): ");
 
-        customerRetrievalRate = inputValidityChecker(input, "Enter customer retrieval rate per ticket (How much tickets for a minute): ");
+            customerRetrievalRate = inputValidityChecker(input, "Enter customer retrieval rate per ticket (How much tickets for a minute): ");
 
-        maxTicketCapacity = inputValidityChecker(input, "Enter max ticket capacity: ");
-
+            maxTicketCapacity = inputValidityChecker(input, "Enter max ticket capacity: ");
+//        } else if (choice.equals("N")) {
+//
+//        }
 
 
         System.out.println("System configuration completed!");
