@@ -74,6 +74,7 @@ public class TicketSystem {
         Thread customer1 = new Thread(new Customer(ticketPool, "Shanaka", customerRetrievalRate, 5, false));
         Thread customer2 = new Thread(new Customer(ticketPool, "Namidu", customerRetrievalRate, 3, false));
         Thread customer3 = new Thread(new Customer(ticketPool, "Umesh", customerRetrievalRate, 4, true));
+        Thread customer4 = new Thread(new Customer(ticketPool, "athif", customerRetrievalRate, 1, true));
 
         vendor1.start();
         Thread.sleep(2000);
@@ -84,6 +85,8 @@ public class TicketSystem {
         customer2.start();
         Thread.sleep(2000);
         customer3.start();
+        Thread.sleep(2000);
+        customer4.start();
         Thread.sleep(2000);
 
         while (true) {

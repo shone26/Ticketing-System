@@ -11,19 +11,18 @@ public class User {
     private String password;
     private String email;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+
 
     public User() {
 
     }
 
-    public User(String fullName, String username, String password, String email, String role) {
+    public User(String fullName, String username, String password, String email) {
         this.fullName = fullName;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.role = Role.valueOf(role);
+
 
     }
 
