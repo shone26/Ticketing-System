@@ -1,11 +1,8 @@
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
-import com.google.gson.Gson;
+
 
 
 public class TicketSystem {
