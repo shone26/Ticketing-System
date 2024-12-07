@@ -21,7 +21,7 @@ public class Vendor implements Runnable {
             ticketPool.addTicket(releaseRate, totalTickets, price, vendorName, releaseTicketAmount);
             try {
                 //12 per minute
-                Thread.sleep(5000);
+                Thread.sleep(2000);
 
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

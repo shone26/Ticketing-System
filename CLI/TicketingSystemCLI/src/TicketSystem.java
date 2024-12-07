@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-
+import com.google.gson.Gson;
 
 
 public class TicketSystem {
@@ -20,13 +20,13 @@ public class TicketSystem {
                         "   WELCOME TO THE TICKET MANAGEMENT SYSTEM\n" +
                         "*********************************************");
 
-        System.out.println("Y - Add new configuration settings...\n N - Use previous configuration settings");
+       System.out.println("Y - Add new configuration settings...\n N - Use previous configuration settings");
 
 
         Scanner input = new Scanner(System.in);
 
-//        String choice = input.nextLine();
-//        if (choice.equals("Y")) {
+        String choice = input.nextLine().toUpperCase();
+        if (choice.equals("Y")) {
             totalTickets = inputValidityChecker(input, "Enter total tickets available: ");
 
             ticketReleaseRate = inputValidityChecker(input, "Enter ticket release rate per ticket (How much tickets for a minute): ");
@@ -34,13 +34,23 @@ public class TicketSystem {
             customerRetrievalRate = inputValidityChecker(input, "Enter customer retrieval rate per ticket (How much tickets for a minute): ");
 
             maxTicketCapacity = inputValidityChecker(input, "Enter max ticket capacity: ");
-//        } else if (choice.equals("N")) {
-//
-//        }
+        } else if (choice.equals("N")) {
+            String filename = "config.json";
+
+            SystemConfiguration config = SystemConfiguration.fromJson(filename);
+            if (config != null) {
+                totalTickets = config.getTotalTickets();
+                ticketReleaseRate = config.getTicketReleaseRate();
+                customerRetrievalRate = config.getCustomerRetrievalRate();
+                maxTicketCapacity = config.getMaxTicketCapacity();
+            } else {
+                System.out.println("Error loading previous configuration. Using default values.");
+            }
+        }
 
 
         System.out.println("System configuration completed!");
-        input.close();
+
 
         SystemConfiguration config = new SystemConfiguration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
 
@@ -75,6 +85,20 @@ public class TicketSystem {
         Thread.sleep(2000);
         customer3.start();
         Thread.sleep(2000);
+
+        while (true) {
+            System.out.println("Enter 'stop' to terminate the program or press any key to continue...");
+            String command = input.nextLine().toLowerCase();
+
+            if (command.equals("stop")) {
+                System.out.println("Stopping the program...");
+                break;
+            }
+        }
+
+        // Clean up and terminate
+        input.close();
+        System.exit(0);
 
     }
 

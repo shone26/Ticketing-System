@@ -88,7 +88,12 @@ public class TicketPool {
             }
             return true; // Successfully removed tickets
         } else {
-            System.out.println("Not enough tickets available.");
+            try {
+                System.out.println("Not enough tickets available.");
+                wait();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             return false; // Not enough tickets to fulfill the request
         }
     }
