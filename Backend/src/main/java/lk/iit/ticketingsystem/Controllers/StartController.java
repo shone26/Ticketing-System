@@ -3,13 +3,16 @@ package lk.iit.ticketingsystem.Controllers;
 import jakarta.annotation.PostConstruct;
 import lk.iit.ticketingsystem.Database.CustomerRepository;
 import lk.iit.ticketingsystem.Database.VendorRepository;
+import lk.iit.ticketingsystem.Models.Configuration;
 import lk.iit.ticketingsystem.Models.threading.Customer;
 import lk.iit.ticketingsystem.Models.threading.Vendor;
+import lk.iit.ticketingsystem.service.JsonReader;
 import lk.iit.ticketingsystem.service.TicketPoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,8 +93,16 @@ public class StartController {
     public String startsystem() {
         System.out.println("System has started");
 
+
+        Configuration config = null;
+        try {
+            config = JsonReader.readConfigFromFile("config.json");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         // Initialize the TicketPoolService (you can inject it as a bean if needed)
-        TicketPoolService ticketPoolService = new TicketPoolService(100, 10);
+        TicketPoolService ticketPoolService = new TicketPoolService(config.getMaximumTicketCapacity(), config.getTotalTickets());
 
         // Fetch all vendors and customers from the database dynamically
         List<lk.iit.ticketingsystem.Models.Vendor> vendors = vendorRepository.findAll();

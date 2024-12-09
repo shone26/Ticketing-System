@@ -39,7 +39,9 @@ function ConfigurationPage() {
           </Link>
             </Button>
             <Button className="dark:bg-gray-700 dark:text-white w-full">
+            <Link to={"/vendor-details"}>
               Add Previous Configuration Settings
+              </Link>
             </Button>
           </div>
         

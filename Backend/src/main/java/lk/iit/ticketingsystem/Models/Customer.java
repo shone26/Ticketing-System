@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jdk.jfr.BooleanFlag;
 
 import java.util.List;
 
@@ -13,18 +14,17 @@ public class Customer {
     private String firstName;
     private String lastName;
     private int retrieveTicketAmount;
-    private boolean isVip;
+
 
     @OneToMany(mappedBy = "customer")
     private List<Ticket> tickets;
 
     public Customer() {}
 
-    public Customer(String firstName, String lastName, int retrieveTicketAmount, boolean isVip) {
+    public Customer(String firstName, String lastName, int retrieveTicketAmount) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.retrieveTicketAmount = retrieveTicketAmount;
-        this.isVip = isVip;
     }
 
     public int getCustomerId() {
@@ -59,13 +59,7 @@ public class Customer {
         this.retrieveTicketAmount = retrieveTicketAmount;
     }
 
-    public boolean isVip() {
-        return isVip;
-    }
 
-    public void setVip(boolean vip) {
-        isVip = vip;
-    }
 
     public List<Ticket> getTickets() {
         return tickets;
