@@ -65,8 +65,8 @@ public class TicketSystem {
 
         TicketPool ticketPool = new TicketPool(maxTicketCapacity, totalTickets);
 
-        Thread vendor1 = new Thread(new Vendor(ticketPool, totalTickets, ticketReleaseRate, "Shone", 2000, 7));
-        Thread vendor2 = new Thread(new Vendor(ticketPool, totalTickets,  ticketReleaseRate, "Dasun", 4000, 5));
+        Thread vendor1 = new Thread(new Vendor(ticketPool,  ticketReleaseRate, "Shone", 2000, 7));
+        Thread vendor2 = new Thread(new Vendor(ticketPool,   ticketReleaseRate, "Dasun", 4000, 5));
 
         Thread customer1 = new Thread(new Customer(ticketPool, "Shanaka", customerRetrievalRate, 5, false));
         Thread customer2 = new Thread(new Customer(ticketPool, "Namidu", customerRetrievalRate, 3, false));

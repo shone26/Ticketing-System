@@ -1,7 +1,7 @@
 package lk.iit.ticketingsystem.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lk.iit.ticketingsystem.Models.Configuration;
-import lk.iit.ticketingsystem.Models.User;
+//import lk.iit.ticketingsystem.Models.User;
 import org.springframework.stereotype.Service;
 
 import java.io.File;

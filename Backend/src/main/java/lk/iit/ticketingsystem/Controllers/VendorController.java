@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class VendorController {
@@ -22,10 +23,10 @@ public class VendorController {
     }
 
     @PostMapping("/add-vendor")
-    public String addPerson(@RequestBody Vendor vendor) {
-        // Save the person object to the repository
-        vendorRepository.save(vendor);
-        return "Added " + vendor.getFirstName();
+    public String addVendors(@RequestBody List<Vendor> vendors) {
+        // Save the list of vendor objects to the repository
+        vendorRepository.saveAll(vendors);
+        return "Added " + vendors.size() + " vendors";
     }
 
 }

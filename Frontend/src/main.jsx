@@ -10,6 +10,7 @@ import SignInPage from "./pages/sign page/sign-in.page";
 import Home from "./pages/home page/home";
 import ConfigurationPage from "./pages/configuration page/configuration.page";
 import NewConfig from "./pages/configuration page/new.configration";
+import StartSystemButton from "./pages/configuration page/start";
 
 
 
@@ -32,7 +33,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/sign-in",
-    element: <SignInPage/>
+    element: <SignInPage/>,
+  },
+  {
+    path: "/add",
+    element: <StartSystemButton/>
+  },
+  {
+    
   },
 
     

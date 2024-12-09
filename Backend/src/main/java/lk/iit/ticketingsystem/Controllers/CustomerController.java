@@ -2,13 +2,12 @@ package lk.iit.ticketingsystem.Controllers;
 
 
 import lk.iit.ticketingsystem.Database.CustomerRepository;
-import lk.iit.ticketingsystem.Models.Configuration;
 import lk.iit.ticketingsystem.Models.Customer;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class CustomerController {
@@ -19,10 +18,10 @@ public class CustomerController {
     }
 
     @PostMapping("/add-customer")
-    public String addPerson(@RequestBody Customer customer) {
+    public String addPerson(@RequestBody List<Customer> customer) {
         // Save the person object to the repository
-        customerRepository.save(customer);
-        return "Added " + customer.getFirstName();
+        customerRepository.saveAll(customer);
+        return "Added " + customer.size() + " vendors";
     }
 
 }

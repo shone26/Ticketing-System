@@ -4,69 +4,75 @@ import jakarta.persistence.*;
 
 @Entity
 public class Ticket {
-    private @Id @GeneratedValue int id;
-    private String price;
+    private @Id @GeneratedValue int ticketId;
+    private double ticketPrice;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "customerID")
-    private Customer customerId;
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
     @ManyToOne
-    @JoinColumn(name = "vendor_id", referencedColumnName = "vendorID")
-    private Vendor vendorId;
+    @JoinColumn(name = "vendor_id")
+    private Vendor vendor;
 
-    @ManyToOne
-    @JoinColumn(name = "session_id", referencedColumnName = "sessionID")
-    private Session sessionId;
+    private String purchaserName;
+
+//    @ManyToOne
+//    @JoinColumn(name = "session_id")
+//    private Session session;
+
+    private boolean isPurchased;
 
     public Ticket() {}
 
 
-    public Ticket(int id, String price, Customer customerId, Vendor vendorId, Session sessionId) {
-        this.id = id;
-        this.price = price;
-        this.customerId = customerId;
-        this.vendorId = vendorId;
-        this.sessionId = sessionId;
+    public Ticket(int ticketId, double ticketPrice) {
+        this.ticketId = ticketId;
+        this.ticketPrice = ticketPrice;
+        this.isPurchased = false;
+        this.purchaserName = null;
     }
 
-    public int getId() {
-        return id;
+    public int getTicketId() {
+        return ticketId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTicketId(int ticketId) {
+        this.ticketId = ticketId;
     }
 
-    public String getPrice() {
-        return price;
+    public double getTicketPrice() {
+        return ticketPrice;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setTicketPrice(double ticketPrice) {
+        this.ticketPrice = ticketPrice;
     }
 
-    public Customer getCustomerId() {
-        return customerId;
+    public boolean isPurchased() {
+        return isPurchased;
     }
 
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setPurchased(boolean purchased) {
+        isPurchased = purchased;
     }
 
-    public Vendor getVendorId() {
-        return vendorId;
+    public String getPurchaserName() {
+        return purchaserName;
     }
 
-    public void setVendorId(Vendor vendorId) {
-        this.vendorId = vendorId;
+    public void setPurchaserName(String purchaserName) {
+        this.purchaserName = purchaserName;
     }
 
-    public Session getSessionId() {
-        return sessionId;
+    // Method to purchase the ticket
+    public void purchaseTicket(String customerName) {
+        this.isPurchased = true;
+        this.purchaserName = customerName;
     }
 
-    public void setSessionId(Session sessionId) {
-        this.sessionId = sessionId;
+    @Override
+    public String toString() {
+        return "Ticket ID: " + ticketId + ", Price: " + ticketPrice + ", Purchased: " + isPurchased;
     }
 }

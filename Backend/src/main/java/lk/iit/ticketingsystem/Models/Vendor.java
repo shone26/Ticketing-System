@@ -4,7 +4,10 @@ package lk.iit.ticketingsystem.Models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lk.iit.ticketingsystem.Controllers.VendorController;
+
+import java.util.List;
 
 @Entity
 public class Vendor {
@@ -12,6 +15,9 @@ public class Vendor {
     private String firstName;
     private String lastName;
     private int releaseTicketAmount;
+
+    @OneToMany(mappedBy = "vendor")
+    private List<Ticket> tickets;
 
     public Vendor() {}
 
@@ -25,7 +31,7 @@ public class Vendor {
         return vendorId;
     }
 
-    public void setId(int vendorId) {
+    public void setVendorId(int vendorId) {
         this.vendorId = vendorId;
     }
 
@@ -51,5 +57,13 @@ public class Vendor {
 
     public void setReleaseTicketAmount(int releaseTicketAmount) {
         this.releaseTicketAmount = releaseTicketAmount;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 }

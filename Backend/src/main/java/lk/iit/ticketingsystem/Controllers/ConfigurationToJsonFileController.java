@@ -1,7 +1,7 @@
 package lk.iit.ticketingsystem.Controllers;
 
 import lk.iit.ticketingsystem.Models.Configuration;
-import lk.iit.ticketingsystem.Models.User;
+//import lk.iit.ticketingsystem.Models.User;
 import lk.iit.ticketingsystem.services.JsonFileWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

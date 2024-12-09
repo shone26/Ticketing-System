@@ -3,12 +3,12 @@ public class Vendor implements Runnable {
     private int releaseRate;
     private double price;
     private String vendorName;
-    private int totalTickets;
+
     private int releaseTicketAmount;
 
-    public Vendor(TicketPool ticketPool, int totalTickets, int releaseRate, String vendorName, double price, int releaseTicketAmount) {
+    public Vendor(TicketPool ticketPool,  int releaseRate, String vendorName, double price, int releaseTicketAmount) {
         this.ticketPool = ticketPool;
-        this.totalTickets = totalTickets;
+
         this.releaseRate = releaseRate;
         this.vendorName = vendorName;
         this.price = price;
@@ -18,7 +18,7 @@ public class Vendor implements Runnable {
     @Override
     public void run() {
         while (true) {
-            ticketPool.addTicket(releaseRate, totalTickets, price, vendorName, releaseTicketAmount);
+            ticketPool.addTicket(releaseRate, price, vendorName, releaseTicketAmount);
             try {
                 //12 per minute
                 Thread.sleep(2000);

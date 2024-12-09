@@ -32,7 +32,7 @@ public class TicketPool {
     }
 
 
-    public synchronized void addTicket(int releaseRate, int totalTickets, double ticketPrice, String vendorName, int releaseTicketAmount) {
+    public synchronized void addTicket(int releaseRate,  double ticketPrice, String vendorName, int releaseTicketAmount) {
 
 
             for (int i = 0; i < releaseTicketAmount; i++) {
