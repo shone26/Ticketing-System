@@ -73,7 +73,7 @@ function NewConfig() {
     };
 
     try {
-      const response = await axios.post("http://localhost:8080/write-config-json", data, {
+      const response = await axios.post("http://localhost:8080/api/config/write-config-json", data, {
         headers: {
           "Content-Type": "application/json",
         },

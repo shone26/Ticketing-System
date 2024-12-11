@@ -2,15 +2,15 @@ public class Customer extends Thread {
     public TicketPool ticketPool;
     private String customerName;
     private int retrieveRate;
-    private boolean isVip;
+
     private int ticketAmount;
 
-    public Customer(TicketPool ticketPool, String customerName, int retrieveRate, int ticketAmount, boolean isVip) {
+    public Customer(TicketPool ticketPool, String customerName, int retrieveRate, int ticketAmount) {
         this.ticketPool = ticketPool;
         this.customerName = customerName;
         this.retrieveRate = retrieveRate;
         this.ticketAmount = ticketAmount;
-        this.isVip = isVip;
+
     }
 
 
@@ -34,17 +34,6 @@ public class Customer extends Thread {
                     Thread.currentThread().interrupt();
                 }
             }
-
-
-
-//            // Attempt to purchase a ticket (retrieval rate)
-//            ticketPool.removeTicket(retrieveRate, customerName, ticketAmount);
-//
-//            try {
-//                Thread.sleep(5000); // Simulate a 0.5-second interval between purchases
-//            } catch (InterruptedException e) {
-//                Thread.currentThread().interrupt();  // Handle interruption properly
-//            }
         }
     }
 

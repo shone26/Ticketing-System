@@ -2,13 +2,12 @@ package lk.iit.ticketingsystem.Controllers;
 
 import lk.iit.ticketingsystem.Database.VendorRepository;
 import lk.iit.ticketingsystem.Models.Vendor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/vendor")
 public class VendorController {
     private final VendorRepository vendorRepository;
 

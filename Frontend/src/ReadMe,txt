@@ -1,0 +1,60 @@
+# Backend Project
+
+This is the backend service for the Ticketing System. It handles all business logic related to customer and vendor management, ticket management, and configuration settings.
+
+## Table of Contents
+- [Overview](#overview)
+- [Prerequisites](#prerequisites)
+- [Setup](#setup)
+- [Running the Application](#running-the-application)
+- [Project Structure](#project-structure)
+- [Endpoints](#endpoints)       
+- [License](#license)
+
+## Overview
+
+This project implements a Real-Time Event Ticketing System using Spring Boot for the backend and Angular for the frontend. It simulates a ticket sales environment using a Producer-Consumer pattern, where vendors add tickets to a pool, and customers attempt to purchase tickets concurrently. 
+
+### Key Features:
+- *Customer Management*: Handles creation, retrieval, and updating of customer information.
+- *Producer-Consumer pattern*: to simulate vendor ticket releases and customer purchases
+- *Concurrency management*:  Manage through multi-threading and synchronization
+- *MySQL*: Integration with MySQL for storing transaction data
+- *Thread*: Integration with MySQL for storing transaction data
+  
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- Backend: Spring Boot, Java 21
+- Frontend: React JS
+- Database: MySQL 
+- Build Tool: Maven (Backend), Vite (Frontend)
+- Apache Maven (for building the project)
+- A running database (if applicable) for data persistence
+- An IDE like IntelliJ IDEA, Eclipse, or VS Code for development
+
+## Setup
+
+1. *Clone the repository*:
+    bash
+    git clone <repository-url>
+    cd <project-directory>
+    
+
+2. *Install dependencies*:
+    This project uses Maven for dependency management. Run the following command to install all necessary dependencies:
+    bash
+    mvn install
+    
+
+3. *Configure the database* (if applicable):
+    - Update the database connection settings in application.properties or Configuration.java (for a custom configuration).
+    - Ensure the database is set up with the necessary schema.
+
+## Running the Application
+
+You can run the backend service by using Maven:
+
+```bash
+mvn spring-boot:run

@@ -2,22 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
-
-
-
-import SignUpPage from "./pages/login page/sign-up.page";
-import SignInPage from "./pages/sign page/sign-in.page";
 import Home from "./pages/home page/home";
-import ConfigurationPage from "./pages/configuration page/configuration.page";
 import NewConfig from "./pages/configuration page/new.configration";
-import StartSystemButton from "./pages/configuration page/start";
+import ConfigurationPage from "./pages/configuration page/configuration.page";
 import CustomerDetailPage from "./pages/customer page/customer.detail";
-import VendorDetailPage from "./pages/vendor page/vender.detail";
-import TestPage from "./pages/customer page/test";
-import LogViewer from "./log/log";
-import StartPage from "./pages/configuration page/start";
-import PamodVendorDetailPage from "./pages/pamod/ven";
-import PamodCustomerDetailPage from "./pages/pamod/cus";
+import VendorDetailPage from "./pages/vendor page/vender.detail"; 
+import LogViewer from "./pages/log/logviewer.page";
+
+
+
+
+
+
 
 
 
@@ -35,18 +31,6 @@ const router = createBrowserRouter([
     element: <ConfigurationPage/>,
   },
   {
-    path: "/sign-up",
-    element: <SignUpPage/>,
-  },
-  {
-    path: "/sign-in",
-    element: <SignInPage/>,
-  },
-  {
-    path: "/add",
-    element: <StartPage/>
-  },
-  {
     path: "/customer-details",
     element: <CustomerDetailPage/>,
   },
@@ -55,27 +39,9 @@ const router = createBrowserRouter([
     element: <VendorDetailPage/>,
   },
   {
-    path: "/test",
-    element: <TestPage/>,
-  },
-  {
     path: "/log",
     element: <LogViewer/>,
   },
-  {
-    path: "/pa.ven",
-    element: <PamodVendorDetailPage/>,
-  },
-  {
-    path: "/pa.cus",
-    element: <PamodCustomerDetailPage/>,
-  },
-  
-
-
-
-    
-  
 ]); 
 
 

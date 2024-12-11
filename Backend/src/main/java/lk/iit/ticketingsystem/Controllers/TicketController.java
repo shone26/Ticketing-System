@@ -4,19 +4,11 @@ import lk.iit.ticketingsystem.service.TicketPoolService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-//@RequestMapping("/api/tickets")
+@RequestMapping("/api/tickets")
 public class TicketController {
 
 
     private TicketPoolService ticketPoolService;
-
-    // Endpoint to add tickets (by vendor)
-//    @PostMapping("/add")
-//    public String addTickets(@RequestBody TicketRequest ticketRequest) {
-//        ticketPool.addTickets(ticketRequest.getReleaseRate(), ticketRequest.getPrice(),
-//                ticketRequest.getVendorName(), ticketRequest.getAmount());
-//        return "Tickets added successfully!";
-//    }
 
 
     // Endpoint to purchase tickets (by customer)

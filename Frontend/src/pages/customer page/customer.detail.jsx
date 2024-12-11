@@ -73,14 +73,14 @@ function CustomerDetailPage() {
     }));
 
     try {
-      const response = await axios.post("http://localhost:8080/add-customer", data, {
+      const response = await axios.post("http://localhost:8080/api/customer/add-customer", data, {
         headers: {
           "Content-Type": "application/json",
         },
       });
       console.log("Form submitted with:", response.data);
       setIsSubmitted(true);
-      navigate("/add");
+      navigate("/log");
     } catch (error) {
       console.error("Error submitting form:", error);
     }
@@ -230,7 +230,7 @@ function CustomerDetailPage() {
 
           <div className="mt-4 text-center text-sm text-gray-300">
             To view previous configurations,{" "}
-            <Link to="/configuration" className="text-green-400 hover:underline">
+            <Link to="/log" className="text-green-400 hover:underline">
               click here
             </Link>
           </div>

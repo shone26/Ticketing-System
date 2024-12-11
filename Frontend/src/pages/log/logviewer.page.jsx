@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 import { CardFooter } from "@/components/ui/card";
 import { io } from "socket.io-client";
 
-function StartPage() {
+function LogViewer() {
   const navigate = useNavigate();
 
   const [logs, setLogs] = useState([]);
@@ -55,7 +55,7 @@ function StartPage() {
   const handleGetStarted = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:8080/startsystem", {
+      const response = await fetch("http://localhost:8080/api/system/start", {
         method: "POST", // Assuming the API accepts POST requests to start the system
         headers: {
           "Content-Type": "application/json",
@@ -133,4 +133,4 @@ function StartPage() {
   );
 }
 
-export default StartPage;
+export default LogViewer;

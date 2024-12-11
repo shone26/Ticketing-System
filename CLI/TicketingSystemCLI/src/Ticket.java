@@ -1,9 +1,14 @@
+// The Ticket class represents an individual ticket in the ticketing system.
+// Each ticket will have a unique ID and a fixed price.
+
 public class Ticket {
+    // Static variable ticketCounter to generate unique ticket IDs.
     private int ticketId;
     private String customerName;
     private double ticketPrice;
     private boolean isPurchased;
 
+    // Constructor where I initialize the system with a set number of tickets and the ids
     public Ticket(int ticketId, double ticketPrice) {
         this.ticketId = ticketId;
         this.ticketPrice = ticketPrice;
@@ -12,12 +17,7 @@ public class Ticket {
     public int getTicketId() {
         return ticketId;
     }
-    public double getTicketPrice() {
-        return ticketPrice;
-    }
-    public boolean isPurchased() {
-        return isPurchased;
-    }
+
 
     public void purchaseTicket(String customerName) {
         this.customerName=customerName;

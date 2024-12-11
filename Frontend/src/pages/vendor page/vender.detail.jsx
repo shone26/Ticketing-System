@@ -83,7 +83,7 @@ function VendorDetailPage() {
     }));
 
     try {
-      const response = await axios.post("http://localhost:8080/add-vendor", data, {
+      const response = await axios.post("http://localhost:8080/api/vendor/add-vendor", data, {
         headers: {
           "Content-Type": "application/json",
         },

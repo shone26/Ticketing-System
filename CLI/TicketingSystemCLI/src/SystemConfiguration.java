@@ -1,16 +1,16 @@
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class SystemConfiguration {
+    // Configuration values for the ticket system, like total tickets, release rates, and max capacity.
     private int totalTickets;
     private int ticketReleaseRate;
     private int customerRetrievalRate;
     private int maxTicketCapacity;
 
-    // Constructor
+    // Constructor to set up the configuration of the system.
     public SystemConfiguration(int totalTickets, int ticketReleaseRate, int customerRetrievalRate, int maxTicketCapacity) {
         this.totalTickets = totalTickets;
         this.ticketReleaseRate = ticketReleaseRate;
@@ -18,7 +18,7 @@ public class SystemConfiguration {
         this.maxTicketCapacity = maxTicketCapacity;
     }
 
-    // Convert the object to a JSON string (Serialization)
+    // Convert the configuration object to a JSON string for easy saving or transmission.
     public String toJson() {
         Gson gson = new Gson();
         return gson.toJson(this);  // Convert the object into a JSON string
@@ -52,7 +52,7 @@ public class SystemConfiguration {
         return maxTicketCapacity;
     }
 
-    // Optionally, override the toString method to display the object in a readable format
+
     @Override
     public String toString() {
         return "SystemConfiguration{" +
