@@ -91,7 +91,7 @@ public class TicketPool {
             try {
                 System.out.println("Not enough tickets available.");
                 wait();
-            } catch (Exception e) {
+            } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             return false; // Not enough tickets to fulfill the request

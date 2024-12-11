@@ -14,6 +14,7 @@ import StartSystemButton from "./pages/configuration page/start";
 import CustomerDetailPage from "./pages/customer page/customer.detail";
 import VendorDetailPage from "./pages/vendor page/vender.detail";
 import TestPage from "./pages/customer page/test";
+import LogViewer from "./log/log";
 
 
 
@@ -54,6 +55,11 @@ const router = createBrowserRouter([
     path: "/test",
     element: <TestPage/>,
   },
+  {
+    path: "/log",
+    element: <LogViewer/>,
+  },
+
 
 
     

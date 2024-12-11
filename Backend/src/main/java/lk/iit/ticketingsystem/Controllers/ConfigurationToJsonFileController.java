@@ -30,18 +30,18 @@ public class ConfigurationToJsonFileController {
 //        }
 //    }
 
-    @GetMapping("/write-config-json")
-    public String writeConfigJson() {
-        try {
-            // Create a User object
-            Configuration config = new Configuration(20, 40, 40, 50);
-            // Write to a file called 'user.json'
-            jsonFileWriter.writeUserToFile(config, "config.json");
-            return "User JSON written successfully!";
-        } catch (IOException e) {
-            return "Error writing to file: " + e.getMessage();
-        }
-    }
+//    @GetMapping("/write-config-json")
+//    public String writeConfigJson() {
+//        try {
+//            // Create a User object
+//            Configuration config = new Configuration(20, 40, 40, 50);
+//            // Write to a file called 'user.json'
+//            jsonFileWriter.writeUserToFile(config, "config.json");
+//            return "User JSON written successfully!";
+//        } catch (IOException e) {
+//            return "Error writing to file: " + e.getMessage();
+//        }
+//    }
     @PostMapping("/write-config-json")
     public String writeConfigJson(@RequestBody Configuration config) {
         try {

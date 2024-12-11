@@ -22,6 +22,8 @@ public class TicketPoolService {
     // Ticket ID generator
     private int ticketIdGenerator;
 
+    private boolean isPaused = false;
+
     // List of possible ticket prices
     private final List<Double> priceList;
 
@@ -62,7 +64,7 @@ public class TicketPoolService {
                 notifyAll();  // Notify other threads when a ticket is added
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
+
             }
         }
     }
@@ -94,8 +96,9 @@ public class TicketPoolService {
             }
             return true;  // Successfully removed tickets
         } else {
-            System.out.println("Not enough tickets available.");
+
             try {
+                System.out.println("Not enough tickets available.");
                 wait();  // Wait if there are not enough tickets
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();

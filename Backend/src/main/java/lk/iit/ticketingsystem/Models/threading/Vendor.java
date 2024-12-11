@@ -1,5 +1,6 @@
 package lk.iit.ticketingsystem.Models.threading;
 
+import lk.iit.ticketingsystem.Controllers.StartController;
 import lk.iit.ticketingsystem.service.TicketPoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,7 @@ public class Vendor implements Runnable {
     @Override
     public void run() {
         while (true) {
+
             ticketPoolService.addTickets(releaseRate, price, vendorName, releaseTicketAmount);
             try {
                 // Release tickets every 2 seconds (simulate the process)

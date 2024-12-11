@@ -1,6 +1,5 @@
 package lk.iit.ticketingsystem.Controllers;
 
-
 import lk.iit.ticketingsystem.Database.CustomerRepository;
 import lk.iit.ticketingsystem.Models.Customer;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,10 +17,13 @@ public class CustomerController {
     }
 
     @PostMapping("/add-customer")
-    public String addPerson(@RequestBody List<Customer> customer) {
-        // Save the person object to the repository
-        customerRepository.saveAll(customer);
-        return "Added " + customer.size() + " vendors";
-    }
+    public String addCustomer(@RequestBody List<Customer> customers) {
+        // Delete all previous customers
+        customerRepository.deleteAll();
 
+        // Save the new customers to the repository
+        customerRepository.saveAll(customers);
+
+        return "Added " + customers.size() + " customers and deleted previous records.";
+    }
 }
