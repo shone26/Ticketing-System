@@ -1,8 +1,5 @@
 package lk.iit.ticketingsystem;
 
-import lk.iit.ticketingsystem.Models.threading.Customer;
-import lk.iit.ticketingsystem.Models.threading.Vendor;
-import lk.iit.ticketingsystem.service.TicketPoolService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

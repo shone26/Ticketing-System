@@ -1,21 +1,19 @@
 package lk.iit.ticketingsystem.Models.threading;
 
-import lk.iit.ticketingsystem.Controllers.StartController;
 import lk.iit.ticketingsystem.service.TicketPoolService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Vendor implements Runnable {
+public class VendorThread implements Runnable {
     private TicketPoolService ticketPoolService;
     private int releaseRate;
     private double price;
     private String vendorName;
     private int releaseTicketAmount;
 
-    public Vendor(){}
+    public VendorThread(){}
 
-    public Vendor(TicketPoolService ticketPoolService, int releaseRate, String vendorName, double price, int totalTicketAmount) {
+    public VendorThread(TicketPoolService ticketPoolService, int releaseRate, String vendorName, double price, int totalTicketAmount) {
         this.ticketPoolService = ticketPoolService;
         this.releaseRate = releaseRate;
         this.vendorName = vendorName;

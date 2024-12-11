@@ -5,15 +5,15 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class Customer implements Runnable {
+public class CustomerThread implements Runnable {
     private TicketPoolService ticketPoolService;
     private String customerName;
     private int ticketRetrievalRate;
     private int ticketAmount;
 
-    public Customer(){}
+    public CustomerThread(){}
 
-    public Customer(TicketPoolService ticketPoolService, String customerName, int ticketRetrievalRate, int ticketAmount) {
+    public CustomerThread(TicketPoolService ticketPoolService, String customerName, int ticketRetrievalRate, int ticketAmount) {
         this.ticketPoolService = ticketPoolService;
         this.customerName = customerName;
         this.ticketRetrievalRate = ticketRetrievalRate;

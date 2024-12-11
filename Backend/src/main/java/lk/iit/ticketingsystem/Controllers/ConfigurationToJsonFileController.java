@@ -2,9 +2,8 @@ package lk.iit.ticketingsystem.Controllers;
 
 import lk.iit.ticketingsystem.Models.Configuration;
 //import lk.iit.ticketingsystem.Models.User;
-import lk.iit.ticketingsystem.services.JsonFileWriter;
+import lk.iit.ticketingsystem.service.TicketPoolService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +14,7 @@ import java.io.IOException;
 public class ConfigurationToJsonFileController {
 
     @Autowired
-    private JsonFileWriter jsonFileWriter;
+    private TicketPoolService.JsonFileWriter jsonFileWriter;
 
 //    @GetMapping("/write-user-json")
 //    public String writeUserJson() {

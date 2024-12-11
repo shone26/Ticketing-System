@@ -62,7 +62,7 @@ public class TicketPool {
     }
 
     public synchronized boolean removeTicket(int retrievalRate, String customerName, int ticketAmount) {
-        // Ensure the ticketList is not empty before proceeding
+
         while (ticketList.isEmpty()) {
             try {
                 System.out.println("All the tickets are sold...");
@@ -73,7 +73,7 @@ public class TicketPool {
             }
         }
 
-        // Only proceed if enough tickets are available
+
         if (ticketList.size() >= ticketAmount) {
             for (int i = 0; i < ticketAmount; i++) {
                 try {
@@ -86,7 +86,7 @@ public class TicketPool {
                     return false;
                 }
             }
-            return true; // Successfully removed tickets
+            return true;
         } else {
             try {
                 System.out.println("Not enough tickets available.");
@@ -94,7 +94,7 @@ public class TicketPool {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            return false; // Not enough tickets to fulfill the request
+            return false;
         }
     }
 

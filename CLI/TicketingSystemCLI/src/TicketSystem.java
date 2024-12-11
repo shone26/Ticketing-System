@@ -17,7 +17,7 @@ public class TicketSystem {
                         "   WELCOME TO THE TICKET MANAGEMENT SYSTEM\n" +
                         "*********************************************");
 
-       System.out.println("Y - Add new configuration settings...\n N - Use previous configuration settings");
+       System.out.println("Y - Add new configuration settings...\nN - Use previous configuration settings");
 
 
         Scanner input = new Scanner(System.in);
@@ -40,14 +40,19 @@ public class TicketSystem {
                 ticketReleaseRate = config.getTicketReleaseRate();
                 customerRetrievalRate = config.getCustomerRetrievalRate();
                 maxTicketCapacity = config.getMaxTicketCapacity();
+
+                System.out.println("Total tickets           : " + totalTickets);
+                System.out.println("Ticket release rate     : " + ticketReleaseRate);
+                System.out.println("Customer retrieval rate : " + customerRetrievalRate);
+                System.out.println("Max ticket capacity     : " + maxTicketCapacity);
             } else {
                 System.out.println("Error loading previous configuration. Using default values.");
             }
         }
 
-
+        System.out.println("--------------------------------");
         System.out.println("System configuration completed!");
-
+        System.out.println("--------------------------------");
 
         SystemConfiguration config = new SystemConfiguration(totalTickets, ticketReleaseRate, customerRetrievalRate, maxTicketCapacity);
 
@@ -56,7 +61,9 @@ public class TicketSystem {
         try {
             FileWriter writer = new FileWriter("config.json");
             writer.write(json);
-            System.out.println("Configuration saved to config.json");
+//            System.out.println("----------------------------------");
+//            System.out.println("Configuration saved to config.json");
+//            System.out.println("----------------------------------");
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,7 +103,7 @@ public class TicketSystem {
             }
         }
 
-        // Clean up and terminate
+
         input.close();
         System.exit(0);
 
@@ -117,72 +124,6 @@ public class TicketSystem {
         }return value;
     }
 
-//    public void runCLI(){
-//        System.out.println(
-//                "*********************************************\n" +
-//                        "   WELCOME TO THE TICKET MANAGEMENT SYSTEM\n" +
-//                        "*********************************************\n" +
-//                        "\n" +
-//                        "Your one-stop solution for efficient event ticket tracking and management.\n" +
-//                        "\n" +
-//                        "\uD83D\uDE80 Features at your fingertips:\n" +
-//                        "  1\uFE0F⃣ View the Events going to happen.\n" +
-//                        "  2\uFE0F⃣ Purchase a Ticket.\n" +
-//                        "  3\uFE0F⃣ Cancel your Ticket.\n" +
-//                        "  4\uFE0F⃣ View Tickets you bought.\n" +
-//                        "  5\uFE0F⃣ Contact with the Vender.\n" +
-//                        "\n" +
-//                        "\uD83D\uDEE0\uFE0F Let's get started! Choose an option from the menu below.");
-//
-//
-//    }
-//
-//    public void inputMenuOption(){
-//        Scanner scanner = new Scanner(System.in);
-//
-//        int option = validateInput(scanner.nextInt());
-//
-//    }
-//
-//    private static int validateInput(int option) {
-//        while (true) {
-//            try {
-//                if (option > 0 && option <= 5) {
-//                    return option;
-//                } else {
-//                    System.out.print("Please enter a valid option: ");
-//                }
-//            } catch (NumberFormatException e) {
-//                System.out.print("Invalid input. Please enter a valid number: ");
-//            }
-//        }
-//    }
-//
 
-//    public void connection(){
-//        String url = "jdbc:mysql://localhost:3306/event_ticket_db";
-//        String user = "shone";
-//        String password = "abc@123";
-//
-//        Connection connection = null;
-//
-//        try {
-//            connection = DriverManager.getConnection(
-//                    url, user, password
-//            );
-//            System.out.println("Connection successful!");
-//
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery("select * from config_info");
-//
-//            while (resultSet.next()){
-//                System.out.println(resultSet.getString("config_name"));
-//                System.out.println(resultSet.getString("config_parameter"));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
 
-// need to randomise how many tickets are purchase a time by the customer.

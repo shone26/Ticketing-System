@@ -80,7 +80,7 @@ function CustomerDetailPage() {
       });
       console.log("Form submitted with:", response.data);
       setIsSubmitted(true);
-      navigate("/add");
+      navigate("/");
     } catch (error) {
       console.error("Error submitting form:", error);
     }

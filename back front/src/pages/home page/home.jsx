@@ -6,7 +6,7 @@ function Home() {
     const navigate = useNavigate();
 
   const handleGetStarted = () => {
-    navigate("/configuration"); // Navigate to the booking page or any other page you want
+    navigate("/book-tickets"); // Navigate to the booking page or any other page you want
   };
 
   return (

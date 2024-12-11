@@ -15,9 +15,6 @@ import CustomerDetailPage from "./pages/customer page/customer.detail";
 import VendorDetailPage from "./pages/vendor page/vender.detail";
 import TestPage from "./pages/customer page/test";
 import LogViewer from "./log/log";
-import StartPage from "./pages/configuration page/start";
-import PamodVendorDetailPage from "./pages/pamod/ven";
-import PamodCustomerDetailPage from "./pages/pamod/cus";
 
 
 
@@ -31,7 +28,7 @@ const router = createBrowserRouter([
     element: <NewConfig/>,
   },
   {
-    path: "/configuration",
+    path: "configuration",
     element: <ConfigurationPage/>,
   },
   {
@@ -44,7 +41,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/add",
-    element: <StartPage/>
+    element: <StartSystemButton/>
   },
   {
     path: "/customer-details",
@@ -62,15 +59,6 @@ const router = createBrowserRouter([
     path: "/log",
     element: <LogViewer/>,
   },
-  {
-    path: "/pa.ven",
-    element: <PamodVendorDetailPage/>,
-  },
-  {
-    path: "/pa.cus",
-    element: <PamodCustomerDetailPage/>,
-  },
-  
 
 
 

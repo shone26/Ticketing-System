@@ -1,9 +1,14 @@
 package lk.iit.ticketingsystem.service;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lk.iit.ticketingsystem.Models.Configuration;
 import lk.iit.ticketingsystem.Models.Ticket;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -110,5 +115,20 @@ public class TicketPoolService {
     // Get the current available tickets
     public int getAvailableTickets() {
         return ticketList.size();
+    }
+
+    @Service
+    public static class JsonFileWriter {
+
+        private final ObjectMapper objectMapper;
+
+        public JsonFileWriter(ObjectMapper objectMapper) {
+            this.objectMapper = objectMapper;
+        }
+
+        public void writeUserToFile(Configuration config, String fileName) throws IOException {
+            // Convert the User object to JSON and write it to a file
+            objectMapper.writeValue(new File(fileName), config);
+        }
     }
 }

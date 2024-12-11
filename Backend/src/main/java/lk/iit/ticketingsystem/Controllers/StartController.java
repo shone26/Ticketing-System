@@ -1,11 +1,10 @@
 package lk.iit.ticketingsystem.Controllers;
 
-import jakarta.annotation.PostConstruct;
 import lk.iit.ticketingsystem.Database.CustomerRepository;
 import lk.iit.ticketingsystem.Database.VendorRepository;
 import lk.iit.ticketingsystem.Models.Configuration;
-import lk.iit.ticketingsystem.Models.threading.Customer;
-import lk.iit.ticketingsystem.Models.threading.Vendor;
+import lk.iit.ticketingsystem.Models.threading.CustomerThread;
+import lk.iit.ticketingsystem.Models.threading.VendorThread;
 import lk.iit.ticketingsystem.service.JsonReader;
 import lk.iit.ticketingsystem.service.TicketPoolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,14 +113,14 @@ public class StartController {
 
         // Create and start vendor threads
         for (lk.iit.ticketingsystem.Models.Vendor vendor : vendors) {
-            Thread vendorThread = new Thread(new Vendor(ticketPoolService, config.getTicketReleaseRate(), vendor.getFirstName(), 2000.0, vendor.getReleaseTicketAmount()));
+            Thread vendorThread = new Thread(new VendorThread(ticketPoolService, config.getTicketReleaseRate(), vendor.getFirstName(), 2000.0, vendor.getReleaseTicketAmount()));
             vendorThreads.add(vendorThread);
             vendorThread.start();  // Start the vendor thread
         }
 
         // Create and start customer threads
         for (lk.iit.ticketingsystem.Models.Customer customer : customers) {
-            Thread customerThread = new Thread(new Customer(ticketPoolService, customer.getFirstName(), config.getTicketRetrievalRate(), customer.getRetrieveTicketAmount()));
+            Thread customerThread = new Thread(new CustomerThread(ticketPoolService, customer.getFirstName(), config.getTicketRetrievalRate(), customer.getRetrieveTicketAmount()));
             System.out.println(customer.getRetrieveTicketAmount());
             customerThreads.add(customerThread);
             customerThread.start();  // Start the customer thread

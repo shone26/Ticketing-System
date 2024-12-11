@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { CardFooter } from "@/components/ui/card";
@@ -18,7 +19,6 @@ function StartPage() {
   const [isConnected, setIsConnected] = useState(false);
   const [socket, setSocket] = useState(null);
   const [isError, setIsError] = useState(false); // To track connection errors
-  const [isLoading, setIsLoading] = useState(false); // To track if the system is being started
 
   // Establish WebSocket connection to Spring Boot backend
   useEffect(() => {
@@ -51,34 +51,15 @@ function StartPage() {
     };
   }, []);
 
-  // Handler for starting the ticket system by calling the backend API
-  const handleGetStarted = async () => {
-    try {
-      setIsLoading(true);
-      const response = await fetch("http://localhost:8080/startsystem", {
-        method: "POST", // Assuming the API accepts POST requests to start the system
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        console.log("System started successfully");
-        navigate("/book-tickets"); // Navigate to the booking page or any other page you want
-      } else {
-        console.error("Failed to start the system");
-      }
-    } catch (error) {
-      console.error("Error starting the system: ", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
+  // Handler for starting the ticket system
   const handleStart = () => {
     if (socket) {
       socket.emit("startTicketing"); // Emitting start event to the backend
     }
+  };
+
+  const handleGetStarted = () => {
+    navigate("/book-tickets"); // Navigate to the booking page or any other page you want
   };
 
   return (
@@ -91,10 +72,9 @@ function StartPage() {
       <div className="flex flex-col gap-6">
         <Button
           onClick={handleGetStarted}
-          disabled={isLoading}
           className="bg-green-600 text-gray-50 hover:bg-green-500 rounded-md px-6 py-3 w-full sm:w-auto mx-auto"
         >
-          {isLoading ? "Starting..." : "Get Started"}
+          Get Started
         </Button>
       </div>
 
